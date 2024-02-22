@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200&display=swap');
+
+:root {
+    --font: "Poppins", sans-serif;
+    --cardMaxWidth : 500px;
+    --cardMinWidth : 300px;
+}
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+    font-size: var(--font);
+}
+
+.loginPage {
+    width: 100%;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: minmax(300px, 500px);
+    justify-content: center;
+    align-items: center;
+}
+
+.loginCard {
+    min-width: var(--cardMinWidth);
+    max-width: var(--cardMaxWidth);
+    max-height: auto;
+}
+
+.loginCard table,
+.loginCard tr,
+.loginCard td {
+    padding: 10px 0;
+}
+
+.ayushGithub {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.signUPImage{
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.signUPImage .imageSection{
+    place-self: center;
+    height: 300px;
+    width: 300px;
+    border-radius: 100%;
+    overflow: hidden;
+}
+
+.signUPImage .imageSection img{
+    height: 300px;
+    width: 300px;
+    object-fit: cover;
+}
+
+.profileAll{
+    background-color: #F8F9FA;
+}
+
+.profileNav input{
+    outline: none;
+    border: none;
+}
+
+@media (max-width: 576px) {
+    
+}
+
+@media (max-width: 768px) {
+    .loginPage{
+        align-items: normal;
+    }
+}
+
+
+@media (min-width: 992px) {}
+
+
+@media (min-width: 1200px) {}
+
+
+@media (min-width: 1400px) {}
+
