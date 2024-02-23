@@ -6,7 +6,6 @@ import FullWBtn from './smallComponents/FullWBtn';
 
 const LoginPage = () => {
     const ref = useRef();
-
     const handleLogin = (e) => {
         
     }

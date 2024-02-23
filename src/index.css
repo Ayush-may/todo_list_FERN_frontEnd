@@ -1,9 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=B612+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
 
 :root {
     --font: "Poppins", sans-serif;
-    --cardMaxWidth : 500px;
-    --cardMinWidth : 300px;
+    --cardMaxWidth: 500px;
+    --cardMinWidth: 300px;
 }
 
 * {
@@ -40,12 +41,12 @@
     transform: translateX(-50%);
 }
 
-.signUPImage{
+.signUPImage {
     display: grid;
     grid-template-columns: 1fr;
 }
 
-.signUPImage .imageSection{
+.signUPImage .imageSection {
     place-self: center;
     height: 300px;
     width: 300px;
@@ -53,27 +54,81 @@
     overflow: hidden;
 }
 
-.signUPImage .imageSection img{
+.signUPImage .imageSection img {
     height: 300px;
     width: 300px;
     object-fit: cover;
 }
 
-.profileAll{
+.profileAll {
+    width: 100%;
+    height: 100vh;
     background-color: #F8F9FA;
 }
 
-.profileNav input{
+.profileNav input {
     outline: none;
     border: none;
 }
 
-@media (max-width: 576px) {
-    
+.sideMenuProfile {
+    padding-left:2rem ;
+    max-width: 300px;
+    font-family: "Josefin Sans", sans-serif;
+    background-color: white;
+
+    overflow: hidden;
 }
 
+.sideMenuProfile .todotext{
+    font-size: 4rem;
+    font-weight: 400;
+}
+
+.sideMenuProfile ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    /* max-width: 400px; */
+    height: 100vh;
+    background-color: white;
+    /* padding: 00px 0 1rem 3rem; */
+
+    
+    display: grid;
+    grid-template-columns: minmax(100px,300px);
+    grid-template-rows:  repeat(2, minmax( 50px,400px));
+    /* justify-content: space-between; */
+}
+
+.sideMenuProfile ul li {
+    /* align-self: start; */
+    margin: 0.5rem 0;
+    cursor: pointer;
+    font-weight: 500;
+    
+    font-size: 1.2rem;
+    padding: 5px 0;
+}
+
+.sideMenuProfile ul li:hover{
+    color: rgb(126, 126, 126);
+}
+
+.selected_li {
+    border-right: 4px solid rgb(129, 192, 34);
+    color: rgb(83, 83, 83);
+}
+
+.not_selected_li {
+    color: rgb(175, 175, 175);
+    border: none !important;
+}
+
+@media (max-width: 576px) {}
+
 @media (max-width: 768px) {
-    .loginPage{
+    .loginPage {
         align-items: normal;
     }
 }
@@ -86,4 +141,3 @@
 
 
 @media (min-width: 1400px) {}
-
