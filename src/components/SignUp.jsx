@@ -1,14 +1,17 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { RiTodoLine } from "react-icons/ri";
 import GithubAyush from './GithubAyush';
 import { Link } from 'react-router-dom'
 import FullWBtn from './smallComponents/FullWBtn'
 import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify';
 
 const LoginPage = () => {
     const ref = useRef();
-    // axios.defaults.baseURL = 'https://todo-list-fern-backend.onrender.com';
-    axios.defaults.baseURL = 'http://localhost:5000';
+    axios.defaults.baseURL = 'https://todo-list-fern-backend.onrender.com';
+    // axios.defaults.baseURL = 'http://localhost:5000';
+
+    const [tempData, setTempData] = useState('');
 
     const checkForEmail = (e) => {
         const email = ref.current[0].value.toUpperCase();
@@ -20,14 +23,11 @@ const LoginPage = () => {
             })
                 .then(e => {
                     const data = e.data;
-                    if(data.includes(email)){
-                        
-                    }else{
-                        ref.current[0].style.outline = '2px solid  #2ecc71'
+                    if (data.includes(email)) {
+                        ref.current[0].style.outline = '3px solid  #e74c3c' //red
+                    } else {
+                        ref.current[0].style.outline = '3px solid  #2ecc71' //green
                     }
-                })
-                .catch(e => {
-                    console.error(e)
                 })
         }
     }
@@ -37,7 +37,10 @@ const LoginPage = () => {
         const password = ref.current[1].value
 
         if (email === '' || password === '') {
-            alert('Fill the form !!');
+            toast.error("Fill the form", {
+                closeOnClick: true,
+                pauseOnHover: false
+            });
         }
         else {
             document.body.style.cursor = 'loading';
@@ -47,30 +50,38 @@ const LoginPage = () => {
                 data: { email, password }
             }).then(e => {
                 document.body.style.cursor = 'default';
-                alert('user is created');
+                notify();
+                ref.current[0].value = ''
+                ref.current[1].value = ''
             }).catch(e => {
-                alert('something went wrong');
+                toast.error("Something went wrong !");
             })
         }
     }
 
+    const notify = () => {
+        toast.success("User is created successfully !");
+    };
+
     return (
         <>
+            <ToastContainer theme="colored" closeOnClick={true} pauseOnFocusLoss={false} />
             <div className='loginPage' >
                 <div className='loginCard shadow-sm  p-4' >
                     <div className='d-flex flex-column align-items-center' ><RiTodoLine size={'2em'} /></div>
                     <h3 className='fw-bold mt-3 text-center' >Sign up</h3>
                     <form ref={ref} action="">
                         <table className='mt-3 w-100'>
-
-                            <tr>
-                                <td><label htmlFor="" className=''>Email</label></td>
-                                <td><input type="email" name='username' className='form-control' placeholder='Enter email' required onInput={(e) => { checkForEmail(e) }} /></td>
-                            </tr>
-                            <tr >
-                                <td><label htmlFor="" className=''>Password</label></td>
-                                <td><input type="text" name='password' className=' form-control' placeholder='Enter password' required /></td>
-                            </tr>
+                            <tbody>
+                                <tr>
+                                    <td><label htmlFor="" className=''>Email</label></td>
+                                    <td><input type="email" name='username' className='form-control' placeholder='Enter email' required onInput={(e) => { checkForEmail(e) }} /></td>
+                                </tr>
+                                <tr >
+                                    <td><label htmlFor="" className=''>Password</label></td>
+                                    <td><input type="password" name='password' className=' form-control' placeholder='Enter password' required /></td>
+                                </tr>
+                            </tbody>
                         </table>
                     </form>
                     <div onClick={(e) => handleForm(e)} ><FullWBtn name={'Sign Up'} /></div>
