@@ -1,7 +1,7 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { RiTodoLine } from "react-icons/ri";
 import GithubAyush from './GithubAyush';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import FullWBtn from './smallComponents/FullWBtn'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
@@ -11,29 +11,40 @@ const LoginPage = () => {
     axios.defaults.baseURL = 'https://todo-list-fern-backend.onrender.com';
     // axios.defaults.baseURL = 'http://localhost:5000';
 
-    const [tempData, setTempData] = useState('');
+    const [tempData, setTempData] = useState([]);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        try {
+            axios({
+                url: '/check_user',
+                method: 'GET'
+            })
+                .then(e => { setTempData(e.data) })
+        } catch (error) { }
+    }, []);
+
+    const getUsers = () => {
+
+    }
 
     const checkForEmail = (e) => {
         const email = ref.current[0].value.toUpperCase();
+        const regx = /^([a-zA-Z0-9\.-]+)@gmail\.com$/gi;
         if (email === '') { ref.current[0].style.outline = 'none' }
         else {
-            axios({
-                url: '/check_user',
-                method: 'GET',
-            })
-                .then(e => {
-                    const data = e.data;
-                    if (data.includes(email)) {
-                        ref.current[0].style.outline = '3px solid  #e74c3c' //red
-                    } else {
-                        ref.current[0].style.outline = '3px solid  #2ecc71' //green
-                    }
-                })
+            if (!regx.test(email)) {
+                ref.current[0].style.outline = '3px solid  #e74c3c' //red
+            } else if (tempData.includes(email)) {
+                ref.current[0].style.outline = '3px solid  #e74c3c' //red
+            } else {
+                ref.current[0].style.outline = '3px solid  #2ecc71' //green
+            }
         }
     }
 
     const handleForm = (e) => {
-        const email = ref.current[0].value;
+        const email = ref.current[0].value.toCapitalize();
         const password = ref.current[1].value
 
         if (email === '' || password === '') {
@@ -43,29 +54,24 @@ const LoginPage = () => {
             });
         }
         else {
-            document.body.style.cursor = 'loading';
+            const id = toast.loading('Please wait');
             axios({
                 url: '/create_user',
                 method: 'POST',
                 data: { email, password }
             }).then(e => {
-                document.body.style.cursor = 'default';
-                notify();
                 ref.current[0].value = ''
                 ref.current[1].value = ''
+                toast.update(id, { render: 'Account is created !', type: 'success', isLoading: false, autoClose: true, closeOnClick: true });
+                navigate('/sign_up/add_image', { state: { email, password } });
             }).catch(e => {
-                toast.error("Something went wrong !");
+                toast.update(id, { render: 'Something went wrong !', type: 'error', isLoading: false, autoClose: true, closeOnClick: true });
             })
         }
     }
 
-    const notify = () => {
-        toast.success("User is created successfully !");
-    };
-
     return (
         <>
-            <ToastContainer theme="colored" closeOnClick={true} pauseOnFocusLoss={false} />
             <div className='loginPage' >
                 <div className='loginCard shadow-sm  p-4' >
                     <div className='d-flex flex-column align-items-center' ><RiTodoLine size={'2em'} /></div>
@@ -75,7 +81,7 @@ const LoginPage = () => {
                             <tbody>
                                 <tr>
                                     <td><label htmlFor="" className=''>Email</label></td>
-                                    <td><input type="email" name='username' className='form-control' placeholder='Enter email' required onInput={(e) => { checkForEmail(e) }} /></td>
+                                    <td><input type="email" name='username' className='form-control' placeholder='Enter email' required onInput={(e) => { checkForEmail(e) }} onFocus={(e) => getUsers(e)} /></td>
                                 </tr>
                                 <tr >
                                     <td><label htmlFor="" className=''>Password</label></td>
