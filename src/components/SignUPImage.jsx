@@ -30,6 +30,7 @@ const SignUPImage = () => {
         reader.onload = (e) => {
             const src = reader.result;
             ref.current.src = src;
+            console.log(src);
         }
     }
 

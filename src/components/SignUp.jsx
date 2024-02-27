@@ -4,16 +4,20 @@ import GithubAyush from './GithubAyush';
 import { Link, useNavigate } from 'react-router-dom'
 import FullWBtn from './smallComponents/FullWBtn'
 import axios from 'axios'
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
+
 
 const LoginPage = () => {
     const ref = useRef();
-    axios.defaults.baseURL = 'https://todo-list-fern-backend.onrender.com';
-    // axios.defaults.baseURL = 'http://localhost:5000';
+    // axios.defaults.baseURL = 'https://todo-list-fern-backend.onrender.com';
+    axios.defaults.baseURL = 'http://localhost:5000';
 
     const [tempData, setTempData] = useState([]);
     const navigate = useNavigate();
-
+    const redOutline = '3px solid  #e74c3c';
+    const greenOutline = '3px solid  #2ecc71';
+    const regx = /^([a-zA-Z0-9\.-]+)@gmail\.com$/gi;
+    
     useEffect(() => {
         try {
             axios({
@@ -24,27 +28,22 @@ const LoginPage = () => {
         } catch (error) { }
     }, []);
 
-    const getUsers = () => {
-
-    }
-
     const checkForEmail = (e) => {
         const email = ref.current[0].value.toUpperCase();
-        const regx = /^([a-zA-Z0-9\.-]+)@gmail\.com$/gi;
         if (email === '') { ref.current[0].style.outline = 'none' }
         else {
             if (!regx.test(email)) {
-                ref.current[0].style.outline = '3px solid  #e74c3c' //red
+                ref.current[0].style.outline = redOutline //red
             } else if (tempData.includes(email)) {
-                ref.current[0].style.outline = '3px solid  #e74c3c' //red
+                ref.current[0].style.outline = redOutline //red
             } else {
-                ref.current[0].style.outline = '3px solid  #2ecc71' //green
+                ref.current[0].style.outline = greenOutline //green
             }
         }
     }
 
     const handleForm = (e) => {
-        const email = ref.current[0].value.toCapitalize();
+        const email = ref.current[0].value;
         const password = ref.current[1].value
 
         if (email === '' || password === '') {
@@ -56,7 +55,7 @@ const LoginPage = () => {
         else {
             const id = toast.loading('Please wait');
             axios({
-                url: '/create_user',
+                url: '/createauthuser',
                 method: 'POST',
                 data: { email, password }
             }).then(e => {
@@ -90,7 +89,7 @@ const LoginPage = () => {
                             </tbody>
                         </table>
                     </form>
-                    <div onClick={(e) => handleForm(e)} ><FullWBtn name={'Sign Up'} /></div>
+                    <div onClick={(e) => handleForm(e)} ><FullWBtn name={'Create account'} /></div>
                     <hr />
                     <Link to={'/'} > <button className='btn btn-success w-100 border mt-4' >Login</button> </Link>
                 </div>
