@@ -50,14 +50,16 @@ const LoginPage = () => {
                 .then(e => {
                     if (e.data.error) {
                         // Error
-                        console.log(e.data)
                         toast.update(id, { render: 'Something went wrong !', type: 'error', isLoading: false, autoClose: true, closeOnClick: true });
                     } else {
                         // Success
-                        navigate('/profile');
+                        navigate('/profile', {
+                            state: e.data
+                        });
                         toast.update(id, { render: 'Account is created !', type: 'success', isLoading: false, autoClose: true, closeOnClick: true });
                     }
                 }).catch(e => {
+
                 })
         } catch (error) {
 
@@ -71,14 +73,16 @@ const LoginPage = () => {
                     <h3 className='fw-bold mt-3 text-center' >Sign in</h3>
                     <form ref={ref}>
                         <table className='mt-3 w-100'>
-                            <tr>
-                                <td><label htmlFor="" className=''>Email</label></td>
-                                <td><input ref={inpRef} name='email' type="text" className=' form-control' onChange={handleChanges} onFocus={handleChanges} placeholder='Enter email' /></td>
-                            </tr>
-                            <tr >
-                                <td><label htmlFor="" className=''>Password</label></td>
-                                <td><input name='password' type="text" className=' form-control' onChange={handleChanges} placeholder='Enter password' /></td>
-                            </tr>
+                            <tbody>
+                                <tr>
+                                    <td><label htmlFor="" className=''>Email</label></td>
+                                    <td><input ref={inpRef} name='email' type="text" className=' form-control' onChange={handleChanges} onFocus={handleChanges} placeholder='Enter email' /></td>
+                                </tr>
+                                <tr >
+                                    <td><label htmlFor="" className=''>Password</label></td>
+                                    <td><input name='password' type="text" className=' form-control' onChange={handleChanges} placeholder='Enter password' /></td>
+                                </tr>
+                            </tbody>
                         </table>
                     </form>
                     <div ref={btnRef} onClick={handleLogin} ><FullWBtn name={'Sign In'} /></div>
