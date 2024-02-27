@@ -1,15 +1,60 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { RiTodoLine } from "react-icons/ri";
 import GithubAyush from './GithubAyush';
 import { Link } from 'react-router-dom'
 import FullWBtn from './smallComponents/FullWBtn';
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
 
 const LoginPage = () => {
     const ref = useRef();
-    const handleLogin = (e) => {
-        
+    const btnRef = useRef();
+    const inpRef = useRef();
+    const redOutline = '3px solid  #e74c3c';
+    const greenOutline = '3px solid  #2ecc71';
+    const regx = /^([a-zA-Z0-9\.-]+)@gmail\.com$/gi;
+
+    const [user, setUser] = useState({
+        email: "",
+        password: ""
+    });
+
+    useEffect(() => {
+
+    }), [];
+
+    const handleChanges = (e) => {
+        // Destructuring the value
+        const { name, value } = e.target;
+        setUser(prev => ({ ...prev, [name]: value }));
+
+        if (user.email == '') { inpRef.current.style.outline = 'none' }
+        else {
+            if (!regx.test(user.email)) {
+                inpRef.current.style.outline = redOutline //red
+            } else {
+                inpRef.current.style.outline = greenOutline //red
+            }
+        }
     }
 
+    const handleLogin = (e) => {
+        const userData = {
+            method: 'POST',
+            url: "",
+            data: { email: user.email, password: user.password }
+        }
+        /*
+            create a  conection to API for sign in the user with its UiD
+            So the user( current ) can access its data 
+        */
+        const res = toast.promise(axios(userData), {
+            pending: 'Loading...',
+            success: 'Logged in ',
+            error: 'Something went wrong'
+        })
+        console.log(res)
+    }
     return (
         <>
             <div className='loginPage' >
@@ -20,15 +65,15 @@ const LoginPage = () => {
                         <table className='mt-3 w-100'>
                             <tr>
                                 <td><label htmlFor="" className=''>Email</label></td>
-                                <td><input name='email' type="text" className=' form-control' placeholder='Enter email' /></td>
+                                <td><input ref={inpRef} name='email' type="text" className=' form-control' onChange={handleChanges} onFocus={handleChanges} placeholder='Enter email' /></td>
                             </tr>
                             <tr >
                                 <td><label htmlFor="" className=''>Password</label></td>
-                                <td><input name='password' type="text" className=' form-control' placeholder='Enter password' /></td>
+                                <td><input name='password' type="text" className=' form-control' onChange={handleChanges} placeholder='Enter password' /></td>
                             </tr>
                         </table>
                     </form>
-                    <div onClick={(e)=>{ handleLogin(e) }} ><FullWBtn name={'Sign In'} /></div>
+                    <div ref={btnRef} onClick={handleLogin} ><FullWBtn name={'Sign In'} /></div>
                     <hr />
                     <Link to={'/sign_up'} > <button className='btn btn-danger w-100 border mt-4' >Create new account ?</button> </Link>
                 </div>
