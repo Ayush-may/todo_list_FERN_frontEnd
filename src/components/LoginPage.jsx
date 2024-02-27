@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { RiClosedCaptioningLine, RiTodoLine } from "react-icons/ri";
 import GithubAyush from './GithubAyush';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import FullWBtn from './smallComponents/FullWBtn';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
@@ -13,6 +13,7 @@ const LoginPage = () => {
     const ref = useRef();
     const btnRef = useRef();
     const inpRef = useRef();
+    const navigate = useNavigate();
     const redOutline = '3px solid  #e74c3c';
     const greenOutline = '3px solid  #2ecc71';
     const regx = /^([a-zA-Z0-9\.-]+)@gmail\.com$/gi;
@@ -21,10 +22,6 @@ const LoginPage = () => {
         email: "",
         password: ""
     });
-
-    useEffect(() => {
-
-    }), [];
 
     const handleChanges = (e) => {
         // Destructuring the value
@@ -48,30 +45,19 @@ const LoginPage = () => {
             url: "/signinuser",
             data: { email: user.email, password: user.password }
         }
-        /*
-            create a  conection to API for sign in the user with its UiD
-            So the user( current ) can access its data 
-        */
         try {
             axios(userData)
                 .then(e => {
-
-                    console.log(e)
-
-                    // if (e.data.code.status == "400") {
-                    //     console.log("400", e)
-                    //     toast.update(id, { render: 'Something went wrong !', type: 'error', isLoading: false, autoClose: true, closeOnClick: true });
-                    // }
-                    // else if (e.data.status == "200") {
-                    //     console.log("200", e)
-                    //     toast.update(id, { render: 'Logged in !', type: 'success', isLoading: false, autoClose: true, closeOnClick: true });
-                    // } else {
-                    //     console.log("simpe", e.data.status)
-                    //     toast.update(id, { render: 'Something went wrong !', type: 'error', isLoading: false, autoClose: true, closeOnClick: true });
-                    // }
+                    if (e.data.error) {
+                        // Error
+                        console.log(e.data)
+                        toast.update(id, { render: 'Something went wrong !', type: 'error', isLoading: false, autoClose: true, closeOnClick: true });
+                    } else {
+                        // Success
+                        navigate('/profile');
+                        toast.update(id, { render: 'Account is created !', type: 'success', isLoading: false, autoClose: true, closeOnClick: true });
+                    }
                 }).catch(e => {
-                    console.log(e)
-                    toast.update(id, { render: 'Something went wrong !', type: 'error', isLoading: false, autoClose: true, closeOnClick: true });
                 })
         } catch (error) {
 
