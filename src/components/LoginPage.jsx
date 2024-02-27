@@ -1,10 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { RiTodoLine } from "react-icons/ri";
+import { RiClosedCaptioningLine, RiTodoLine } from "react-icons/ri";
 import GithubAyush from './GithubAyush';
 import { Link } from 'react-router-dom'
 import FullWBtn from './smallComponents/FullWBtn';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
+
+// axios.defaults.baseURL = 'https://todo-list-fern-backend.onrender.com';
+axios.defaults.baseURL = 'http://localhost:5000';
 
 const LoginPage = () => {
     const ref = useRef();
@@ -28,7 +31,7 @@ const LoginPage = () => {
         const { name, value } = e.target;
         setUser(prev => ({ ...prev, [name]: value }));
 
-        if (user.email == '') { inpRef.current.style.outline = 'none' }
+        if (user.email == '') { inpRef.currenfeatt.style.outline = 'none' }
         else {
             if (!regx.test(user.email)) {
                 inpRef.current.style.outline = redOutline //red
@@ -39,21 +42,40 @@ const LoginPage = () => {
     }
 
     const handleLogin = (e) => {
+        const id = toast.loading('Please wait');
         const userData = {
             method: 'POST',
-            url: "",
+            url: "/signinuser",
             data: { email: user.email, password: user.password }
         }
         /*
             create a  conection to API for sign in the user with its UiD
             So the user( current ) can access its data 
         */
-        const res = toast.promise(axios(userData), {
-            pending: 'Loading...',
-            success: 'Logged in ',
-            error: 'Something went wrong'
-        })
-        console.log(res)
+        try {
+            axios(userData)
+                .then(e => {
+
+                    console.log(e)
+
+                    // if (e.data.code.status == "400") {
+                    //     console.log("400", e)
+                    //     toast.update(id, { render: 'Something went wrong !', type: 'error', isLoading: false, autoClose: true, closeOnClick: true });
+                    // }
+                    // else if (e.data.status == "200") {
+                    //     console.log("200", e)
+                    //     toast.update(id, { render: 'Logged in !', type: 'success', isLoading: false, autoClose: true, closeOnClick: true });
+                    // } else {
+                    //     console.log("simpe", e.data.status)
+                    //     toast.update(id, { render: 'Something went wrong !', type: 'error', isLoading: false, autoClose: true, closeOnClick: true });
+                    // }
+                }).catch(e => {
+                    console.log(e)
+                    toast.update(id, { render: 'Something went wrong !', type: 'error', isLoading: false, autoClose: true, closeOnClick: true });
+                })
+        } catch (error) {
+
+        }
     }
     return (
         <>
