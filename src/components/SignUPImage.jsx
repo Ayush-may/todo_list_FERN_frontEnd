@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import FullWBtn from './smallComponents/FullWBtn'
 import GithubAyush from './GithubAyush'
 import { useLocation, useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 
 
 const SignUPImage = () => {
@@ -10,12 +11,14 @@ const SignUPImage = () => {
     const navigate = useNavigate();
     const [load, setLoad] = useState(false);
     const [name, setName] = useState('');
-    
+    const [userData, setUser] = useState();
+
     useEffect(() => {
         try {
             if (location.state == null) {
                 navigate('/sign_up');
             } else {
+                setUser(location.state);
                 setName(location.state.email);
                 setLoad(true);
             }
@@ -48,7 +51,9 @@ const SignUPImage = () => {
                                     <p className='text-center fs-5 mt-1 fw-bold' >{name}</p>
                                     <input type="file" accept='image/png' className='mt-4 form-control' onInput={(e) => handle(e)} />
                                     <FullWBtn name={'Continue'} />
-                                    <button className='btn btn-danger border  mt-4 form-control d-flex justify-content-center' >Skip</button>
+                                    <div onClick={() => {
+                                        navigate('/profile', {state: userData});
+                                    }} ><button className='btn btn-danger border  mt-4 form-control d-flex justify-content-center' >Skip</button></div>
                                 </div>
                             </div>
                         </div>
