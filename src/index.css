@@ -120,20 +120,64 @@
 }
 
 
-.sideAddTodoLeft {
-    border: 1px solid black;
-}
+.sideAddTodoLeft {}
 
 .sideAddTodoRight {
     max-width: 30rem;
     min-width: 15rem;
 }
 
-.color-circle{
+.color-circle {
     width: 10px;
     height: 10px;
     border-radius: 100%;
     background-color: red;
+}
+
+.todo {
+    min-width: 300px;
+    max-width: 300px;
+    max-height: 350px;
+}
+
+.todo .todo-body {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 25px auto;
+}
+
+.todo .todo-body .menu-logo {
+    place-self: end;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.todo .todo-body .menu-logo:hover {
+    background-color: rgba(255  , 255, 255, 0.5);
+    border-radius: 10px;
+}
+
+
+.todo .todo-body h3 {
+    width: 100%;
+    height: fit-content;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+    font-weight: 600;
+    font-size: 2rem;
+    justify-self: flex-start;
+    text-transform: capitalize;
+}
+
+.todo .todo-body table {
+    justify-self: flex-start;
+}
+
+.todo .todo-body table input {
+    margin: 10px 0;
 }
 
 @media (max-width: 576px) {}
