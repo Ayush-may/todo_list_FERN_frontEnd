@@ -152,11 +152,21 @@
     place-self: end;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
+    position: relative;
 }
 
 .todo .todo-body .menu-logo:hover {
     background-color: rgba(255  , 255, 255, 0.5);
     border-radius: 10px;
+}
+
+.todo .todo-body .menu-logo .menu-logo-drop-down{
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    width: 80px;
+    height: auto;
+    background-color: white;
 }
 
 
