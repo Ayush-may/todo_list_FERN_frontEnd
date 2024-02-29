@@ -61,7 +61,7 @@ const LoginPage = () => {
                 }).catch(e => {
 
                 })
-        } catch (error) {}
+        } catch (error) { }
     }
 
     return (
