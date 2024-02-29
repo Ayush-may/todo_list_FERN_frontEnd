@@ -5,11 +5,15 @@ import { Link, useNavigate } from 'react-router-dom'
 import FullWBtn from './smallComponents/FullWBtn';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
+import { addTodo } from '../features/todos/todoSlice';
 
 // axios.defaults.baseURL = 'https://todo-list-fern-backend.onrender.com';
 axios.defaults.baseURL = 'http://localhost:5000';
 
 const LoginPage = () => {
+    const temp = useSelector(state => state.todos);
+    const dispatch = useDispatch();
     const ref = useRef();
     const btnRef = useRef();
     const inpRef = useRef();
@@ -65,9 +69,19 @@ const LoginPage = () => {
 
         }
     }
+
+    const handle = () => {
+        console.log(temp)
+    }
+
+    const handle2 = () => {
+        dispatch(addTodo({ text: 'heyyysys' }));
+    }
     return (
         <>
             <div className='loginPage' >
+                <div><button onClick={handle} >Clickk meee</button></div>
+                <div><button onClick={handle2} >Clickk me to Add Element</button></div>
                 <div className='loginCard shadow-sm  p-4' >
                     <div className='d-flex flex-column align-items-center' ><RiTodoLine size={'2em'} /></div>
                     <h3 className='fw-bold mt-3 text-center' >Sign in</h3>
