@@ -1,11 +1,14 @@
 import React from 'react'
 import TodoMenu from './TodoMenu';
+import { useSelector } from 'react-redux'
 
 const Todo = () => {
+    const color = useSelector(state => state.color.colors);
+    let random = Math.floor(Math.random() * color.length);
+    console.log(random)
+
     return (
-        <div className='todo rounded-4 shadow-sm text-black p-3 py-4' style={{
-            backgroundColor : '#A5DD9B'
-        }} >
+        <div className={`todo rounded-4 shadow-sm text-black p-3 py-4 `} style={{ backgroundColor: `${color[random]}` }} >
             <div className="todo-body h-100 w-100 ">
                 <TodoMenu />
                 <h3>Sample Todo</h3>
