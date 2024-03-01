@@ -8,7 +8,7 @@ const ProfileAddTodoMenu = () => {
                     <input type="text" className='form-control' placeholder='Enter Todo' />
                     <div className='todo-color-scheme'>
                         <div className='color-red'>
-                            <div classsName='color-circle bg-danger'></div>
+                            <div className='color-circle bg-danger'></div>
                             Red
                         </div>
                     </div>
