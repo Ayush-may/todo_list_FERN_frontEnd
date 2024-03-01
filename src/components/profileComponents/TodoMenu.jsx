@@ -8,7 +8,9 @@ const TodoMenu = () => {
     const [isShow, setShow] = useState(false);
 
     return (
-        <div className='menu-logo' >
+        <div className='menu-logo' style={{
+            placeSelf : "flex-end"
+        }} >
             <CiMenuKebab size={'1.4em'} onClick={() => { setShow(prev => !prev) }} className='menu-logo ' />
             {isShow && (<TodoMenuDropDown />)}
         </div>
