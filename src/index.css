@@ -13,7 +13,7 @@
     font-size: var(--font);
 }
 
-body{
+body {
     overflow-x: hidden;
 }
 
@@ -120,8 +120,8 @@ body{
 }
 
 .profileHandler {
-    margin-top: 10rem;
-    /* gap: 3rem; */
+    margin-top: 7rem;
+    padding-bottom: 4rem;
 }
 
 
@@ -138,7 +138,7 @@ body{
     border-radius: 100%;
 }
 
-.color-circle:hover{
+.color-circle:hover {
     border: 1px solid black;
 }
 
@@ -213,7 +213,7 @@ body{
 .note-body h2 {
     min-width: 300px;
     text-wrap: wrap;
-    text-overflow:ellipsis;
+    text-overflow: ellipsis;
 }
 
 .note:hover {
@@ -238,6 +238,7 @@ body{
     .note {
         min-width: 100%;
     }
+
     .profileHandler {
         margin-top: 6rem;
     }

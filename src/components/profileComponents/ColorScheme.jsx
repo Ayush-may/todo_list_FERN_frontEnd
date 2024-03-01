@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 
 const ColorScheme = () => {
     const color = useSelector(state => state.color.colors);
-    console.log(color)
+
     return (
         <div className='todo-color-scheme gap-2 d-flex pt-2'>
             {

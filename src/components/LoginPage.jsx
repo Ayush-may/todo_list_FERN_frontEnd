@@ -67,8 +67,7 @@ const LoginPage = () => {
     return (
         <>
             <div className='loginPage' >
-
-                <div className='loginCard shadow-sm  p-4' >
+                <div className='loginCard shadow-sm mt-5  p-4' >
                     <div className='d-flex flex-column align-items-center' ><RiTodoLine size={'2em'} /></div>
                     <h3 className='fw-bold mt-3 text-center' >Sign in</h3>
                     <form ref={ref}>
