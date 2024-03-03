@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import TodoMenu from './TodoMenu';
 import Type from './Type';
 
-const Note = ({ todo, date, time }) => {
+const Note = ({ noteKey, todo, date, time }) => {
     const color = useSelector(state => state.color.colors);
     let random = Math.floor(Math.random() * color.length);
 
@@ -11,7 +11,9 @@ const Note = ({ todo, date, time }) => {
         <>
             <div className='note position-relative shadow-sm rounded-4 px-3 py-4' style={{
                 border: `1px solid ${color[random]}`,
-                display: "grid"
+                display: "grid",
+                cursor: 'pointer',
+                userSelect: "none"
             }}>
                 <div className='note-body' style={{
                     display: 'grid',
@@ -19,7 +21,7 @@ const Note = ({ todo, date, time }) => {
                     height: '100%'
                 }}>
                     <Type type={'Note'} />
-                    <TodoMenu />
+                    <TodoMenu noteKey={noteKey} />
                     <h2 className=''
                         style={{
                             minWidth: '350px',
