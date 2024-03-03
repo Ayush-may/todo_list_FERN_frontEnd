@@ -9,7 +9,7 @@ const NavProfile = () => {
             <div className='d-flex gap-4 align-items-center' >
                 <input type="text" placeholder='Search todo' className='rounded-lg border py-4 px-3' />
                 <div className='position-relative'>
-                    <MdKeyboardArrowDown onClick={() => setShow(prev=>!prev)} size={'1.4em'} style={{ cursor: 'pointer' }} />
+                    <MdKeyboardArrowDown onClick={() => setShow(prev => !prev)} size={'1.4em'} style={{ cursor: 'pointer' }} />
                     {
                         isShow && (<ProfileTopDropDown />)
                     }
