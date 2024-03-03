@@ -3,7 +3,7 @@ import { CiMenuKebab } from "react-icons/ci";
 import TodoMenuDropDown from './TodoMenuDropDown';
 
 
-const TodoMenu = () => {
+const TodoMenu = ({noteKey}) => {
 
     const [isShow, setShow] = useState(false);
 
@@ -12,7 +12,7 @@ const TodoMenu = () => {
             placeSelf : "flex-end"
         }} >
             <CiMenuKebab size={'1.4em'} onClick={() => { setShow(prev => !prev) }} className='menu-logo ' />
-            {isShow && (<TodoMenuDropDown />)}
+            {isShow && (<TodoMenuDropDown noteKey={noteKey} />)}
         </div>
     )
 }
