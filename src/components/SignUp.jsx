@@ -5,7 +5,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import FullWBtn from './smallComponents/FullWBtn'
 import axios from 'axios'
 import { toast } from 'react-toastify';
-
+import { useDispatch } from 'react-redux';
+import { setCurrentUserUID } from '../features/todos/todoSlice';
 
 const LoginPage = () => {
     const ref = useRef();
@@ -17,7 +18,8 @@ const LoginPage = () => {
     const redOutline = '3px solid  #e74c3c';
     const greenOutline = '3px solid  #2ecc71';
     const regx = /^([a-zA-Z0-9\.-]+)@gmail\.com$/gi;
-    
+    const dispatch = useDispatch();
+
     useEffect(() => {
         try {
             axios({
@@ -61,6 +63,8 @@ const LoginPage = () => {
             }).then(e => {
                 ref.current[0].value = ''
                 ref.current[1].value = ''
+                localStorage.setItem('uId', e.data.localId);
+                dispatch(setCurrentUserUID(e.data.localId));
                 toast.update(id, { render: 'Account is created !', type: 'success', isLoading: false, autoClose: true, closeOnClick: true });
                 navigate('/sign_up/add_image', { state: { email, password } });
             }).catch(e => {

@@ -5,9 +5,21 @@ import { Link, useNavigate } from 'react-router-dom'
 import FullWBtn from './smallComponents/FullWBtn';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { setCurrentUserUID,fetchTodoFromCurrentUser } from '../features/todos/todoSlice';
 
 // axios.defaults.baseURL = 'https://todo-list-fern-backend.onrender.com';
 axios.defaults.baseURL = 'http://localhost:5000';
+
+const createUserInFirebaseDatabase = async (userID) => {
+    const user = await axios({
+        url: "",
+        method: "POST",
+        data: { userID }
+    });
+
+    return user;
+}
 
 const LoginPage = () => {
     const ref = useRef();
@@ -17,11 +29,18 @@ const LoginPage = () => {
     const redOutline = '3px solid  #e74c3c';
     const greenOutline = '3px solid  #2ecc71';
     const regx = /^([a-zA-Z0-9\.-]+)@gmail\.com$/gi;
+    const dispatch = useDispatch();
 
     const [user, setUser] = useState({
         email: "",
         password: ""
     });
+
+    useEffect(() => {
+        if (localStorage.getItem('uId') != null) {
+            navigate('/profile');
+        }
+    }, []);
 
     const handleChanges = (e) => {
         // Destructuring the value
@@ -53,14 +72,16 @@ const LoginPage = () => {
                         toast.update(id, { render: 'Something went wrong !', type: 'error', isLoading: false, autoClose: true, closeOnClick: true });
                     } else {
                         // Success
+                        const UID = e.data.localId;
+                        localStorage.setItem('uId', UID);
+                        dispatch(setCurrentUserUID({UID}));
+                        dispatch( fetchTodoFromCurrentUser() );
                         navigate('/profile', {
                             state: e.data
                         });
-                        toast.update(id, { render: 'Account is created !', type: 'success', isLoading: false, autoClose: true, closeOnClick: true });
+                        toast.update(id, { render: 'Successfully logged in !', type: 'success', isLoading: false, autoClose: true, closeOnClick: true });
                     }
-                }).catch(e => {
-
-                })
+                }).catch(e => { })
         } catch (error) { }
     }
 
