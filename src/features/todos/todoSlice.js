@@ -1,6 +1,8 @@
 import { createSlice, nanoid, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+axios.defaults.baseURL = 'https://todo-list-fern-backend.onrender.com';
+
 const initialState = {
     currentUserUID: '',
     todos: [],

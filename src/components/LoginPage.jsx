@@ -8,8 +8,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { setCurrentUserUID,fetchTodoFromCurrentUser } from '../features/todos/todoSlice';
 
-// axios.defaults.baseURL = 'https://todo-list-fern-backend.onrender.com';
-axios.defaults.baseURL = 'http://localhost:5000';
+axios.defaults.baseURL = 'https://todo-list-fern-backend.onrender.com';
+// axios.defaults.baseURL = 'http://localhost:5000';
 
 const createUserInFirebaseDatabase = async (userID) => {
     const user = await axios({

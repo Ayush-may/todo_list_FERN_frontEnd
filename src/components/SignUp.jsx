@@ -10,8 +10,8 @@ import { setCurrentUserUID } from '../features/todos/todoSlice';
 
 const LoginPage = () => {
     const ref = useRef();
-    // axios.defaults.baseURL = 'https://todo-list-fern-backend.onrender.com';
-    axios.defaults.baseURL = 'http://localhost:5000';
+    axios.defaults.baseURL = 'https://todo-list-fern-backend.onrender.com';
+    // axios.defaults.baseURL = 'http://localhost:5000';
 
     const [tempData, setTempData] = useState([]);
     const navigate = useNavigate();

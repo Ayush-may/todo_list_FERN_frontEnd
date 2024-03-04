@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
 import './index.css'
 import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -12,21 +11,24 @@ import { ToastContainer, toast } from 'react-toastify';
 import { store, persistor } from './app/store.js';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
+import axios from 'axios';
+
+axios.defaults.baseURL = 'https://todo-list-fern-backend.onrender.com';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <Provider store={store}>
-    <PersistGate persistor={persistor} >
-      <BrowserRouter >
-        <ToastContainer theme="colored" closeOnClick={true} pauseOnFocusLoss={false} position='bottom-center' />
-        <Routes>
-          <Route path='/' element={<LoginPage />} />
-          <Route path='sign_up'  >
-            <Route path='' element={<SignUp />} />
-            <Route path='add_image' element={<SignUPImage />} />
-          </Route>
-          <Route path='profile' element={<Profile />} />
-        </Routes>
-      </BrowserRouter>
-    </PersistGate>
-  </Provider>
+    <Provider store={store}>
+        <PersistGate persistor={persistor} >
+            <BrowserRouter >
+                <ToastContainer theme="colored" closeOnClick={true} pauseOnFocusLoss={false} position='bottom-center' />
+                <Routes>
+                    <Route path='/' element={<LoginPage />} />
+                    <Route path='sign_up'  >
+                        <Route path='' element={<SignUp />} />
+                        <Route path='add_image' element={<SignUPImage />} />
+                    </Route>
+                    <Route path='profile' element={<Profile />} />
+                </Routes>
+            </BrowserRouter>
+        </PersistGate>
+    </Provider>
 )

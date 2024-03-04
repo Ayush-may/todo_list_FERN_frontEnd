@@ -11,6 +11,7 @@
     margin: 0;
     box-sizing: border-box;
     font-size: var(--font);
+    user-select: none;
 }
 
 body {
@@ -118,6 +119,8 @@ body {
     border-radius: 100%;
     cursor: pointer;
 }
+
+.add-todo{}
 
 .profileHandler {
     margin-top: 7rem;
