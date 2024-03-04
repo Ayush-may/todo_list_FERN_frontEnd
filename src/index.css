@@ -120,15 +120,11 @@ body {
     cursor: pointer;
 }
 
-.add-todo{}
-
 .profileHandler {
     margin-top: 7rem;
     padding-bottom: 4rem;
 }
 
-
-.sideAddTodoLeft {}
 
 .sideAddTodoRight {
     max-width: 30rem;
@@ -223,7 +219,7 @@ body {
     transform: scale(1.02) translateY(-5px);
 }
 
-ToastContainer{
+ToastContainer {
     position: relative;
     z-index: 999999;
 }
