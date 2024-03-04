@@ -220,6 +220,11 @@ body {
     transform: scale(1.02) translateY(-5px);
 }
 
+ToastContainer{
+    position: relative;
+    z-index: 999999;
+}
+
 @media (max-width: 576px) {}
 
 @media (max-width: 768px) {

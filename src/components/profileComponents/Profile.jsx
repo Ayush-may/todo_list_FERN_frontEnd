@@ -2,17 +2,30 @@ import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router';
 import ProfileNav from './NavProfile'
 import ProfileHandler from './ProfileHandler'
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
 
 const Profile = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const [userData, setUserData] = useState();
+    const [userUID, setUserUID] = useState();
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        if (location.state == "" || location.state == undefined) {
-            navigate('/');
+        if (localStorage.getItem('uId') != null) {
+            setUserUID(localStorage.getItem('uId'));
+
+            // axios({
+            //     url: '',
+            //     method: 'GET',
+            //     data: { userUID }
+            // })
+            // .then(e=>{
+            //     dispatch(e);
+            // })
         } else {
-            setUserData(location.state);
+            navigate('/');
         }
     }, []);
 

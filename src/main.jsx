@@ -15,7 +15,7 @@ import { Provider } from 'react-redux';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <BrowserRouter >
-      <ToastContainer theme="colored" closeOnClick={true} pauseOnFocusLoss={false} />
+      <ToastContainer theme="colored" closeOnClick={true} pauseOnFocusLoss={false} position='bottom-center' />
       <Routes>
         <Route path='/' element={<LoginPage />} />
         <Route path='sign_up'  >

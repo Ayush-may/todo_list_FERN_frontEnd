@@ -1,19 +1,27 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router'
 
 const TodoMenuDropDown = () => {
+    const navigate = useNavigate();
+
+    const handleLogOut = () => {
+        localStorage.removeItem('uId');
+        navigate('/');
+    }
+
     return (
         <div className='profile-menu-logo-drop-down rounded-3 shadow-sm' style={style} >
             <button className='btn btn-outline-primary' >Edit_Profile</button>
-            <button className='btn btn-outline-danger w-100' >LogOut</button>
+            <button className='btn btn-outline-danger w-100' onClick={handleLogOut} >LogOut</button>
         </div>
     )
 }
 
 export default TodoMenuDropDown
 
-let style ={
+let style = {
     position: "absolute",
-    zIndex : "99999",
-    backgroundColor : "white",
-    right : '10px'
+    zIndex: "99999",
+    backgroundColor: "white",
+    right: '10px'
 }
