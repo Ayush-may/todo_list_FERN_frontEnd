@@ -1,11 +1,17 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router'
+import { useDispatch } from 'react-redux';
+import { resetTodoState } from '../../features/todos/todoSlice';
+import { persistor } from '../../app/store';
 
 const TodoMenuDropDown = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleLogOut = () => {
         localStorage.removeItem('uId');
+        dispatch( resetTodoState() );
+        persistor.purge();
         navigate('/');
     }
 
