@@ -16,6 +16,14 @@ const addTodoToFirebaseDasebaseOfCurrentUser = async (todo) => {
     });
 }
 
+const removeTodoFromFirebaseByID = async (todoID) => {
+    const UID = localStorage.getItem('uId');
+    const data = await axios({
+        url: `/delete/todo/${UID}/${todoID}`,
+        method: 'DELETE',
+    });
+}
+
 export const fetchTodoFromCurrentUser = createAsyncThunk('todo/fetchTodoFromCurrentUser', async () => {
     const UID = localStorage.getItem('uId');
     const response = await axios({
@@ -41,7 +49,9 @@ export const todoSlice = createSlice({
             state.todos.unshift(todo);
         },
         removeTodo: (state, action) => {
-            state.todos = state.todos.filter(element => element.id != action.payload)
+            const removeTodoId = action.payload;
+            removeTodoFromFirebaseByID(removeTodoId);
+            state.todos = state.todos.filter(element => element.id != removeTodoId)
         },
         searchQuery: (state, action) => {
             state.searchQueryText = action.payload;
@@ -60,14 +70,22 @@ export const todoSlice = createSlice({
             console.log('pending');
         })
         builder.addCase(fetchTodoFromCurrentUser.fulfilled, (state, action) => {
-            
+            console.log(action.payload)
+            const temp = action.payload.forEach(todoOfThisLoop => {
+                const newTodo = {
+                    id: todoOfThisLoop.id,
+                    text: todoOfThisLoop.todo,
+                    time: new Date().toLocaleTimeString(),
+                    date: new Date().toLocaleDateString()
+                }
+                state.todos.unshift(newTodo);
+            })
         })
         builder.addCase(fetchTodoFromCurrentUser.rejected, (state, action) => {
             console.log('rejected');
         })
     }
 });
-
 
 export const selectedSearchQuery = state => {
     return state.todo.todos.filter(todo => todo.text.toLowerCase().includes(state.todo.searchQueryText.toLowerCase()))

@@ -9,21 +9,24 @@ import SignUp from './components/SignUp.jsx'
 import SignUPImage from './components/SignUPImage.jsx';
 import Profile from './components/profileComponents/Profile.jsx'
 import { ToastContainer, toast } from 'react-toastify';
-import { store } from './app/store.js';
+import { store, persistor } from './app/store.js';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
-    <BrowserRouter >
-      <ToastContainer theme="colored" closeOnClick={true} pauseOnFocusLoss={false} position='bottom-center' />
-      <Routes>
-        <Route path='/' element={<LoginPage />} />
-        <Route path='sign_up'  >
-          <Route path='' element={<SignUp />} />
-          <Route path='add_image' element={<SignUPImage />} />
-        </Route>
-        <Route path='profile' element={<Profile />} />
-      </Routes>
-    </BrowserRouter>
+    <PersistGate persistor={persistor} >
+      <BrowserRouter >
+        <ToastContainer theme="colored" closeOnClick={true} pauseOnFocusLoss={false} position='bottom-center' />
+        <Routes>
+          <Route path='/' element={<LoginPage />} />
+          <Route path='sign_up'  >
+            <Route path='' element={<SignUp />} />
+            <Route path='add_image' element={<SignUPImage />} />
+          </Route>
+          <Route path='profile' element={<Profile />} />
+        </Routes>
+      </BrowserRouter>
+    </PersistGate>
   </Provider>
 )
