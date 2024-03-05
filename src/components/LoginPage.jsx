@@ -4,12 +4,11 @@ import GithubAyush from './GithubAyush';
 import { Link, useNavigate } from 'react-router-dom'
 import FullWBtn from './smallComponents/FullWBtn';
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
-import { setCurrentUserUID,fetchTodoFromCurrentUser } from '../features/todos/todoSlice';
-
+import { setCurrentUserUID, fetchTodoFromCurrentUser } from '../features/todos/todoSlice';
+import 'bootstrap/dist/css/bootstrap.min.css';
 axios.defaults.baseURL = 'https://todo-list-fern-backend.onrender.com';
-// axios.defaults.baseURL = 'http://localhost:5000';
 
 const createUserInFirebaseDatabase = async (userID) => {
     const user = await axios({
@@ -74,8 +73,8 @@ const LoginPage = () => {
                         // Success
                         const UID = e.data.localId;
                         localStorage.setItem('uId', UID);
-                        dispatch(setCurrentUserUID({UID}));
-                        dispatch( fetchTodoFromCurrentUser() );
+                        dispatch(setCurrentUserUID({ UID }));
+                        dispatch(fetchTodoFromCurrentUser());
                         navigate('/profile', {
                             state: e.data
                         });

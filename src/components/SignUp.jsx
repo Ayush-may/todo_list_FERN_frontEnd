@@ -7,6 +7,8 @@ import axios from 'axios'
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { setCurrentUserUID } from '../features/todos/todoSlice';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import '../index.css'
 
 const LoginPage = () => {
     const ref = useRef();
